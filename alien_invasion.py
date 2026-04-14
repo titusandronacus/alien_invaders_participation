@@ -56,6 +56,8 @@ class AlienInvasion:
             self.ship.moving_right = True
         elif event.key == pygame.K_LEFT:
             self.ship.moving_left = True
+        elif event.key == pygame.K_SPACE:
+            self._fire_bullet()
         elif event.key == pygame.K_q:
             sys.exit()
 
@@ -69,8 +71,15 @@ class AlienInvasion:
     def _update_screen(self):
         """Update images on the screen, and flip to the new screen"""
         self.screen.fill(self.settings.bg_color)
+        for bullet in self.bullets.sprites():
+            bullet.draw_bullet()
         self.ship.blitme()
         self.aliens.draw(self.screen)
+
+    def _fire_bullet(self):
+        """Create a new bullet and add it to the bullets group"""
+        new_bullet = Bullet(self)
+        self.bullets.add(new_bullet)
 
     def _create_fleet(self):
         """Create the fleet of aliens"""
