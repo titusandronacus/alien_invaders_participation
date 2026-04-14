@@ -36,6 +36,11 @@ class AlienInvasion:
             self.bullets.update()
             self._update_screen()
 
+            # get ride of bullets that have disappeared
+            for bullet in self.bullets.copy():
+                if bullet.rect.bottom <= 0:
+                    self.bullets.remove(bullet)
+
             # Make the most recently drawn screen visible
             pygame.display.flip()
             self.clock.tick(60)
